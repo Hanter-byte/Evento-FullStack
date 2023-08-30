@@ -1,8 +1,61 @@
-<h1>Eventos</h1>
+<h2>Eventos</h2>
 <hr />
-<div *ngFor="let evento of eventos">
-  <p><b>Tema:</b>{{ evento.tema }}</p>
-  <p><b>Local:</b>{{ evento.local }}</p>
-  <p><b>Data:</b>{{ evento.dataEvento }}</p>
-  <hr />
-</div>
+
+<form action="" class="form-inline">
+  <div class="for-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="Buscar" />
+    <button class="btn btn-outline-success">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Imagem</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="eventos; else nameNotFound">
+    <tr *ngFor="let evento of eventos">
+      <td>{{ evento.eventoId }}</td>
+      <td>{{ evento.imagemUrl }}</td>
+      <td>{{ evento.tema }}</td>
+      <td>{{ evento.local }}</td>
+      <td>{{ evento.dataEvento }}</td>
+      <td>{{ evento.qtdPessoas }}</td>
+      <td>{{ evento.lote }}</td>
+      <td>
+        <a
+          asp-action="Edit"
+          class="btn btn-outline-primary"
+          asp-route-id="@item.Id"
+          ><i class="fa fa-edit"></i
+        ></a>
+        |
+        <a
+          asp-action="Excluir"
+          class="btn btn-outline-danger"
+          asp-route-id="@item.Id"
+          ><i class="fa fa-trash"></i
+        ></a>
+      </td>
+    </tr>
+  </tbody>
+  <ng-template #nameNotFound>
+    <tfoot>
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nem um evento encontrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </ng-template>
+</table>
